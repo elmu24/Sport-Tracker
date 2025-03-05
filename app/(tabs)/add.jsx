@@ -5,20 +5,26 @@ import { Calendar } from 'react-native-calendars';
 import { useStore } from '../../store';
 import { router } from 'expo-router';
 
+// Define available sport types
 const SPORT_TYPES = ['Swimming', 'Running', 'Cycling'];
 
 export default function AddExerciseScreen() {
+  // function to add exercise
   const addExercise = useStore((state) => state.addExercise);
+
+  // local state for form inputs
   const [name, setName] = useState('');
-  const [type, setType] = useState(SPORT_TYPES[0]);
+  const [type, setType] = useState(SPORT_TYPES[0]); //Default = first line/type
   const [distance, setDistance] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
 
+  // preventing empty submissions
   const handleSubmit = () => {
     if (!name || !distance || !duration || !date) return;
 
+    // Adding new exercise to global state
     addExercise({
       id: Date.now().toString(),
       name,
@@ -35,9 +41,11 @@ export default function AddExerciseScreen() {
     setDuration('');
     setDate('');
 
+    // Navigating to list screen
     router.push('/list');
   };
 
+  // Layout of add-Screen text and fields
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -142,6 +150,7 @@ export default function AddExerciseScreen() {
   );
 }
 
+// Styles for the screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,

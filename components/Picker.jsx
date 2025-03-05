@@ -2,9 +2,13 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+// Custom Picker Component
 export function Picker({ value, onValueChange, items }) {
+
+    // State to control whether the modal is open or closed
   const [isOpen, setIsOpen] = useState(false);
 
+    //Creating Picker
   return (
     <>
       <Pressable
@@ -54,6 +58,7 @@ export function Picker({ value, onValueChange, items }) {
   );
 }
 
+// Style
 const styles = StyleSheet.create({
   picker: {
     backgroundColor: '#333',

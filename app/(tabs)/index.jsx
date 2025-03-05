@@ -4,13 +4,17 @@ import { useStore } from '../../store';
 import { ProgressCircle } from '../../components/ProgressCircle';
 import { router } from 'expo-router';
 
+// Goals for weekdays. Just a placeholder so it doesn`t look that empty
 const DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
+// Function for Home
 export default function HomeScreen() {
+  // Getting exercises and goals
   const exercises = useStore((state) => state.exercises);
   const goals = useStore((state) => state.goals);
   const completedDays = 3; // Hardcoded for demo
 
+  // Calculates total distance per exercise type
   const getTotalsByType = () => {
     return exercises.reduce((acc, exercise) => {
       const { type, distance } = exercise;
@@ -19,27 +23,33 @@ export default function HomeScreen() {
     }, {});
   };
 
+  // Getting total distances
   const totals = getTotalsByType();
   const totalDistance = Object.values(totals).reduce((a, b) => a + b, 0);
 
+  // Define the progress rings for every activity type
   const rings = [
     {
+      // Green for swimming
       progress: (totals['Swimming'] || 0) / goals.Swimming,
       color: '#00C853',
       strokeWidth: 12,
     },
     {
+      // Blue for running
       progress: (totals['Running'] || 0) / goals.Running,
       color: '#2196F3',
       strokeWidth: 12,
     },
     {
+      // Pink for cycling
       progress: (totals['Cycling'] || 0) / goals.Cycling,
       color: '#FF4081',
       strokeWidth: 12,
     },
   ];
 
+  // Layout of the tab
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -106,6 +116,7 @@ export default function HomeScreen() {
   );
 }
 
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
